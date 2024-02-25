@@ -1,0 +1,14 @@
+# Define variables
+$ACR_NAME = "yemregumus"
+$GIT_USER = "yemregumus"
+$GIT_PAT = "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"
+$IMAGE_TAG = "helloworld:" + (Get-Date).Ticks
+
+# Create Azure Container Registry task
+az acr task create `
+    --registry $ACR_NAME `
+    --name taskhelloworld `
+    --image $IMAGE_TAG `
+    --context "https://github.com/$GIT_USER/acr-build-helloworld-node.git#master" `
+    --file Dockerfile `
+    --git-access-token $GIT_PAT
